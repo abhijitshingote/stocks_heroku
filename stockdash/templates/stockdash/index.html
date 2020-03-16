@@ -1,0 +1,86 @@
+{% load mathfilters %}
+<!-- {% load static %} -->
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'stockdash/style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<title>Stockdash</title>
+</head>
+<body>
+<h2 class="display-4">Welcome to your Stock Dashboard, Radhika!   </h2>
+<h4><span id="todaydate" class="text-muted">last updated {{gainers.0.date_traded}}</span></h4>
+
+<table id="header-table">
+	<tr>
+		<td><a class="btn btn-primary" href="{% url 'index' %}">All</a></td>
+		<td><a class="btn btn-primary" href="{% url 'top_performers' 'Technology' %}">Technology</a></td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Financial_Services' %}">Financials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Consumer_Cyclical' %}">Consumer_Cyclical</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Utilities' %}">Utilities</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Industrials' %}">Industrials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Healthcare' %}">Healthcare</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Communication_Services' %}">Communication_Services</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Financial' %}">Financial</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Consumer_Defensive' %}">Consumer_Defensive</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Basic_Materials' %}">Basic_Materials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Unknown' %}">Unknown</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Energy' %}">Energy</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Real_Estate' %}">Real_Estate</a></td><td>
+		<td><a id="mybutton" class="btn btn-primary">Somebutton</a></td><td>
+
+
+	</tr>
+</table>
+<br>
+<table id="content-table">
+	<tr>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>RETURN</th><th>MARKET CAP</th>
+	</tr>
+	{% for stockobj in gainers %}
+	<tr>
+		<td>{{stockobj.sector}}</td><td>{{stockobj.industry}}</td><td>{{stockobj.symbol}}</td><td>{{stockobj.symbolname}}</td>
+		<td>${{stockobj.latest_close}}</td>
+		<td>{{stockobj.return_percentage}}%</td><td>${{stockobj.marketcap}} B</td>
+	</tr>
+	{% endfor%}
+</table>
+<br><br>
+<table id="content-table">
+	<tr>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>RETURN</th><th>MARKET CAP</th>
+	</tr>
+	{% for stockobj in losers %}
+	<tr>
+		<td>{{stockobj.sector}}</td><td>{{stockobj.industry}}</td><td>{{stockobj.symbol}}</td><td>{{stockobj.symbolname}}</td>
+		<td>${{stockobj.latest_close}}</td>
+		<td>{{stockobj.return_percentage}}%</td><td>${{stockobj.marketcap}} B</td>
+	</tr>
+	{% endfor%}
+</table>
+
+<div id="div1">waht</div>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+
+		$("#mybutton").click(function(){
+
+    console.log("some message");
+          $.ajax({
+        type:"GET",
+        url: '/somefunction/',
+        success: function (result_) {
+            console.log(result_);
+            $("#div1").html(result_.message);
+          
+        }
+      });
+  // }});
+});
+	</script>
+</body>
+</html>
