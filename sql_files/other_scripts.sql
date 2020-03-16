@@ -102,7 +102,7 @@ d30.return_percentage as return_30_day,now() as timestamp_updated
 from public.return_1_day d1
 left join public.return_7_day d7 on (d1.symbol=d7.symbol)
 left join public.return_14_day d14 on (d1.symbol=d14.symbol)
-left join public.return_30_day d30 on (d1.symbol=d30.symbol)
+left join public.return_30_day d30 on (d1.symbol=d30.symbol);
 
     END
 $$ 	LANGUAGE plpgsql;
