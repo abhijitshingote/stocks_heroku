@@ -10,6 +10,7 @@ drop table if exists public.return_14_day;
 drop table if exists public.return_1_day;
 drop table if exists public.return_30_day;
 drop table if exists public.return_7_day;
+drop table if exists public.total_return;
 -- drop table if exists public.stock_price_history;
 
 
