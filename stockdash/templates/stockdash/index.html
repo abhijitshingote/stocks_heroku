@@ -36,26 +36,34 @@
 <br>
 <table id="content-table">
 	<tr>
-		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>RETURN</th><th>MARKET CAP</th>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>MARKET CAP</th><th>RETURN 1 DAY</th><th>RETURN 7 DAY</th><th>RETURN 14 DAY</th><th>RETURN 30 DAY</th>
 	</tr>
 	{% for stockobj in gainers %}
 	<tr>
 		<td>{{stockobj.sector}}</td><td>{{stockobj.industry}}</td><td>{{stockobj.symbol}}</td><td>{{stockobj.symbolname}}</td>
 		<td>${{stockobj.latest_close}}</td>
-		<td>{{stockobj.return_percentage}}%</td><td>${{stockobj.marketcap}} B</td>
+		<td>${{stockobj.marketcap}} B</td>
+		<td>{{stockobj.return_1_day}}%</td>
+		<td>{{stockobj.return_7_day}}%</td>
+		<td>{{stockobj.return_14_day}}%</td>
+		<td>{{stockobj.return_30_day}}%</td>
 	</tr>
 	{% endfor%}
 </table>
 <br><br>
 <table id="content-table">
 	<tr>
-		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>RETURN</th><th>MARKET CAP</th>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>MARKET CAP</th><th>RETURN 1 DAY</th><th>RETURN 7 DAY</th><th>RETURN 14 DAY</th><th>RETURN 30 DAY</th>
 	</tr>
 	{% for stockobj in losers %}
 	<tr>
 		<td>{{stockobj.sector}}</td><td>{{stockobj.industry}}</td><td>{{stockobj.symbol}}</td><td>{{stockobj.symbolname}}</td>
 		<td>${{stockobj.latest_close}}</td>
-		<td>{{stockobj.return_percentage}}%</td><td>${{stockobj.marketcap}} B</td>
+		<td>${{stockobj.marketcap}} B</td>
+		<td>{{stockobj.return_1_day}}%</td>
+		<td>{{stockobj.return_7_day}}%</td>
+		<td>{{stockobj.return_14_day}}%</td>
+		<td>{{stockobj.return_30_day}}%</td>
 	</tr>
 	{% endfor%}
 </table>

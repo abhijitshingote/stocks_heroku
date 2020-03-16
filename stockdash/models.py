@@ -13,6 +13,25 @@ class PriceHistory(models.Model):
         db_table = 'price_history'
 
 
+class TotalReturn(models.Model):
+    symbol = models.CharField(max_length=10, primary_key=True)
+    sector = models.CharField(max_length=200, blank=True, null=True)
+    industry = models.CharField(max_length=200, blank=True, null=True)
+    marketcap = models.FloatField(blank=True, null=True)
+    symbolname = models.CharField(max_length=200, blank=True, null=True)
+    date_traded = models.DateField(blank=True, null=True)
+    latest_close = models.FloatField(blank=True, null=True)
+    prior_close = models.FloatField(blank=True, null=True)
+    return_1_day = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    return_7_day = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    return_14_day = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    return_30_day = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    timestamp_updated = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'total_return'
+
 class Return14Day(models.Model):
     symbol = models.CharField(max_length=10, primary_key=True)
     sector = models.CharField(max_length=200, blank=True, null=True)
