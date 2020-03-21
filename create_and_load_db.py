@@ -82,7 +82,5 @@ for filename in ['populate_stockinfotable_from_local_insert.sql','cleanup_stocki
 	escaped_sql = sqlalchemy.text(file.read())
 	# print(escaped_sql)
 	engine.execute(escaped_sql.execution_options(autocommit=True))
-	print('Issue -',filename)
-# conn.commit()
-# cur.close()
-# conn.close()
+	print('First Load - Successful -',filename)
+

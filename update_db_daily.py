@@ -66,4 +66,4 @@ for filename in ['removeduplicates_from_stockpricehistory.sql','other_scripts.sq
 	escaped_sql = sqlalchemy.text(file.read())
 	# print(escaped_sql)
 	engine.execute(escaped_sql.execution_options(autocommit=True))
-	print('Running Daily - Issue -',filename)
+	print('Running Daily - Successful -',filename)
