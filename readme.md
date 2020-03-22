@@ -4,7 +4,6 @@
 # heroku addons:open scheduler
 # add "python update_db_daily.py" to webpage
 
-
 # to remove old domains
 heroku domains
 heroku domains:remove techwalkme.com
