@@ -10,6 +10,7 @@ import sqlalchemy
 from io import StringIO
 
 
+
 DATABASE_URL = os.environ['DATABASE_URL']
 engine = sqlalchemy.create_engine(DATABASE_URL,connect_args={'sslmode':'require'})
 
