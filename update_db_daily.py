@@ -14,13 +14,33 @@ from io import StringIO
 DATABASE_URL = os.environ['DATABASE_URL']
 engine = sqlalchemy.create_engine(DATABASE_URL,connect_args={'sslmode':'require'})
 
+def GetStockList(url):
+	r = requests.get(url)
+	s=str(r.content,'utf-8')
+	data = StringIO(s) 
+	return pd.read_csv(data)['Symbol'].tolist()
+
 req=requests.get(
 'https://pkgstore.datahub.io/core/s-and-p-500-companies/constituents_json/data/64dd3e9582b936b0352fdd826ecd3c95/constituents_json.json')
 sp500json=req.json()
 sp500symbols=[]
 for each in sp500json:
 	sp500symbols.append(each['Symbol'])
-uniquesymbolsonly=sp500symbols
+
+url_nasdaq='''https://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nasdaq&render=download'''
+url_amex='''https://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=amex&render=download'''
+url_nyse='''https://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nyse&render=download'''
+
+uniquesymbolsonly=list(set(GetStockList(url_nasdaq)+GetStockList(url_nyse)+GetStockList(url_amex)+sp500symbols))
+uniquesymbolsonly= [sym for sym in uniquesymbolsonly if re.match("^[a-zA-Z]*$", sym)]
+
+for sym in sp500symbols:
+	try:
+		uniquesymbolsonly.remove(sym)
+		uniquesymbolsonly.insert(0,sym)
+	except:
+		continue
+
 print('Got Stock Symbol Lists......Total Symbols - ',str(len(uniquesymbolsonly)))
 
 
@@ -54,6 +74,15 @@ def Get_Data_From_Yahoo_full_load(stocklist,period='1y'):
 			indiv_df['symbol']=symbol
 			main_big_df=main_big_df.append(indiv_df)
 		main_big_df.to_sql('stock_price_history',engine,schema='public',if_exists='append')
+
+
+
+file = open('sql_files/truncate_stockpricehistory.sql')
+escaped_sql = sqlalchemy.text(file.read())
+# print(escaped_sql)
+engine.execute(escaped_sql.execution_options(autocommit=True))
+print('Running Daily - Successful -',filename)
+
 
 Get_Data_From_Yahoo_full_load(uniquesymbolsonly)	
 
