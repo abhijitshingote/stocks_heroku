@@ -81,7 +81,7 @@ file = open('sql_files/truncate_stockpricehistory.sql')
 escaped_sql = sqlalchemy.text(file.read())
 # print(escaped_sql)
 engine.execute(escaped_sql.execution_options(autocommit=True))
-print('Running Daily - Successful -',filename)
+print('Running Daily - Successful -truncate_stockpricehistory.sql')
 
 
 Get_Data_From_Yahoo_full_load(uniquesymbolsonly)	
