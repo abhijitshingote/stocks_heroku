@@ -55,4 +55,4 @@ def stockpage(request,symbol):
 		'prices':prices
 		}
 	return render(request,'stockdash/stockpage.html',context=context)
-	# return HttpResponse('asd')
+
