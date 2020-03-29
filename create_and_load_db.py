@@ -81,7 +81,7 @@ def Get_Data_From_Yahoo_full_load(stocklist,period='1y'):
 			main_big_df=main_big_df.append(indiv_df)
 		main_big_df.to_sql('stock_price_history',engine,schema='public',if_exists='append')
 
-Get_Data_From_Yahoo_full_load(uniquesymbolsonly)	
+Get_Data_From_Yahoo_full_load(uniquesymbolsonly[:10])	
 
 
 for filename in ['populate_stockinfotable_from_local_insert.sql','cleanup_stockinfotable.sql','removeduplicates_from_stockpricehistory.sql','other_scripts.sql']:

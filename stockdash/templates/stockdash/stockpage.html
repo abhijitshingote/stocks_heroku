@@ -1,0 +1,25 @@
+{% extends 'stockdash/base.html' %}
+{% block content %}
+<h4><span id="todaydate" class="text-muted">last updated {{totalreturnobj.date_traded}}</span></h4>
+
+<table id="content-table">
+	<tr>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>MARKET CAP</th><th>RETURN 1 DAY</th><th>RETURN 7 DAY</th><th>RETURN 14 DAY</th><th>RETURN 30 DAY</th>
+	</tr>
+	<tr>
+		<td>{{totalreturnobj.sector}}</td><td>{{totalreturnobj.industry}}</td><td>{{totalreturnobj.symbol}}</td><td>{{totalreturnobj.symbolname}}</td>
+		<td>${{totalreturnobj.latest_close}}</td>
+		<td>${{totalreturnobj.marketcap}} B</td>
+		<td>{{totalreturnobj.return_1_day}}%</td>
+		<td>{{totalreturnobj.return_7_day}}%</td>
+		<td>{{totalreturnobj.return_14_day}}%</td>
+		<td>{{totalreturnobj.return_30_day}}%</td>
+	</tr>
+</table>
+
+{% autoescape off %}
+{{myfig}}
+{% endautoescape %}
+
+
+{% endblock content %}

@@ -2,6 +2,8 @@ from django.shortcuts import render
 from stockdash.models import PriceHistory,Return1Day,Return30Day,TotalReturn
 from django.http import JsonResponse,HttpResponse
 import json
+import matplotlib.pyplot as plt, mpld3
+
 # Create your views here.
 
 def index(request):
@@ -36,3 +38,23 @@ def huh(request):
 	# return HttpResponse("Get out")
 	print('HUHUHU')
 	return render(request,'stockdash/huh.html')
+
+def stockpage(request,symbol):
+	symbol=symbol.upper()
+	print(symbol)
+	totalreturnobj=TotalReturn.objects.using('stockdb').get(symbol=symbol)
+	
+	stockobj=PriceHistory.objects.using('stockdb').filter(symbol=symbol)
+	prices=[(p.date_traded,p.close_price) for p in stockobj]
+	dates,prices=list(zip(*prices))
+	fig = plt.figure(figsize=[12,5])
+	plt.plot(dates,prices)
+	myfig=mpld3.fig_to_html(fig)
+	context=	{
+		'totalreturnobj':totalreturnobj,
+		'stockobj':stockobj,
+		'myfig':myfig,
+		'prices':prices
+		}
+	return render(request,'stockdash/stockpage.html',context=context)
+	# return HttpResponse('asd')

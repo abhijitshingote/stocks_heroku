@@ -1,6 +1,6 @@
 from django.db import models
 class PriceHistory(models.Model):
-    symbol = models.CharField(max_length=10, blank=True, null=True)
+    symbol = models.CharField(max_length=10, primary_key=True)
     date_traded = models.DateField(blank=True, null=True)
     open_price = models.FloatField(blank=True, null=True)
     high_price = models.FloatField(blank=True, null=True)

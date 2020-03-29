@@ -147,3 +147,9 @@ DATABASES['stockdb'] = dj_database_url.config(conn_max_age=600, ssl_require=True
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
