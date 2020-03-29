@@ -12,8 +12,6 @@ def index(request):
 	return render(request,'stockdash/index.html',context={'gainers':gainers,'losers':losers})
 
 def top_performers(request,sector):
-	# if sector=='Financials':
-	# 	sector='Financial Services'
 	gainers=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10,sector=sector,return_1_day__gt=0).order_by('-return_1_day')[:10]
 	losers=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10,sector=sector,return_1_day__lt=0).order_by('return_1_day')[:10]
 	return render(request,'stockdash/index.html',context={'gainers':gainers,'losers':losers})
