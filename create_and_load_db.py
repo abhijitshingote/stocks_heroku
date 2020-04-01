@@ -16,7 +16,7 @@ engine = sqlalchemy.create_engine(DATABASE_URL,connect_args={'sslmode':'require'
 
 with open('stocklist.txt') as fread:
 	uniquesymbolsonly=fread.read()
-uniquesymbolsonly=uniquesymbolsonly.split('||')
+uniquesymbolsonly=sorted(uniquesymbolsonly.split('||'))
 print('Got Stock Symbol Lists......Total Symbols - ',str(len(uniquesymbolsonly)))
 
 
