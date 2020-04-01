@@ -52,7 +52,7 @@ def stockpage(request,symbol):
 		'totalreturnobj':totalreturnobj,
 		'stockobj':stockobj,
 		'myfig':myfig,
-		'prices':prices
+		'prices':list(zip(dates,prices))
 		}
 	return render(request,'stockdash/stockpage.html',context=context)
 
