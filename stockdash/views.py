@@ -44,8 +44,10 @@ def stockpage(request,symbol):
 	
 	stockobj=PriceHistory.objects.using('stockdb').filter(symbol=symbol)
 	prices=[(p.date_traded,p.close_price) for p in stockobj]
+	prices=sorted(prices,key=lambda x:x[0])
 	dates,prices=list(zip(*prices))
 	fig = plt.figure(figsize=[12,5])
+	print(dates)
 	plt.plot(dates,prices)
 	myfig=mpld3.fig_to_html(fig)
 	context=	{
