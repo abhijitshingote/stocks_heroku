@@ -39,9 +39,19 @@ where ph.date_traded=(select max(date_traded) from public.price_history)) as tod
 
 inner join (select  ph.date_traded,ph.symbol,ph.close_price
 from public.price_history ph
-where ph.date_traded=(select max(date_traded)-1 from public.price_history) ) as prior
+where ph.date_traded=(
+--prior date
+select ss.date_traded from 
+	(
+	select row_number () over (order by date_traded desc),date_traded 
+	from
+	(select distinct date_traded from public.price_history ph ) as s
+	) as ss
+where ss.row_number=2
+) ) as prior
 on today.symbol=prior.symbol
 inner join  public.stockinfo s on (today.symbol=s.symbol);	    
+
 
 
 
