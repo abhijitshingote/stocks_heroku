@@ -1,6 +1,6 @@
 {% extends 'stockdash/base.html' %}
 {% block content %}
-<h4><span id="todaydate" class="text-muted">last updated {{stockobjects.0.date_traded}}</span></h4>
+<h4><span id="todaydate" class="text-muted">last updated {{stockobjects.qs.0.date_traded}}</span></h4>
 
 
 <form method="get">
