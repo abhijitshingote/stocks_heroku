@@ -3,6 +3,7 @@ from stockdash.models import PriceHistory,Return1Day,Return30Day,TotalReturn
 from django.http import JsonResponse,HttpResponse
 import json
 import matplotlib.pyplot as plt, mpld3
+from stockdash.filters import TotalReturnFilter
 
 # Create your views here.
 
@@ -32,10 +33,10 @@ def somefunction(request):
 		content_type="application/json"
 		)
 
-def huh(request):
-	# return HttpResponse("Get out")
-	print('HUHUHU')
-	return render(request,'stockdash/huh.html')
+def stock_screener(request):
+	stockobjects = TotalReturnFilter(request.GET, queryset=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10))
+	# stockobjects=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10)
+	return render(request,'stockdash/stock_screener.html',context={'stockobjects':stockobjects})
 
 def stockpage(request,symbol):
 	symbol=symbol.upper()
