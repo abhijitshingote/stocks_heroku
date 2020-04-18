@@ -1,10 +1,84 @@
 {% extends 'stockdash/base.html' %}
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 {% block content %}
 <h4><span id="todaydate" class="text-muted">last updated {{stockobjects.qs.0.date_traded}}</span></h4>
 
 
 <form method="get">
-    {{ stockobjects.form }}
+<div class="row">
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.sector %}
+	</div>
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.industry %}
+    </div>
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.symbolname %}
+    </div>
+   	<div class="col">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_1_daylt %}
+	</div>
+    <div class="col">
+	{%  bootstrap_field stockobjects.form.return_1_daygt %}
+	</div>
+	<div class="col">
+	</div>
+	<div class="col">
+	</div>
+</div>
+
+<div class="row">
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_7_daylt %}
+    </div>
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_7_daygt %}
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_14_daylt %}
+    </div>
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_14_daygt %}
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_30_daylt %}
+    </div>
+    <div class="col">
+    {%  bootstrap_field stockobjects.form.return_30_daygt %}
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+    </div>
+</div>
+
     <input type="submit" />
 </form>
 <table id="content-table" class="sortable">
