@@ -1,26 +1,82 @@
 {% extends 'stockdash/base.html' %}
 {% block content %}
+
+
 <h4><span id="todaydate" class="text-muted">last updated {{totalreturnobj.date_traded}}</span></h4>
+<table id="header-table">
+	<tr>
+		<td><a class="btn btn-primary" href="{% url 'stock_screener' %}">Screener</a></td>
+		<td><a class="btn btn-primary" href="{% url 'index' %}">All</a></td>
+		<td><a class="btn btn-primary" href="{% url 'top_performers' 'Technology' %}">Technology</a></td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Financial_Services' %}">Financials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Consumer_Cyclical' %}">Consumer_Cyclical</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Utilities' %}">Utilities</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Industrials' %}">Industrials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Healthcare' %}">Healthcare</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Communication_Services' %}">Communication_Services</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Financial' %}">Financial</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Consumer_Defensive' %}">Consumer_Defensive</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Basic_Materials' %}">Basic_Materials</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Unknown' %}">Unknown</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Energy' %}">Energy</a></td><td>
+		<td><a class="btn btn-primary"  href="{% url 'top_performers' 'Real_Estate' %}">Real_Estate</a></td><td>
+		<td><a id="mybutton" class="btn btn-primary">Somebutton</a></td><td>
+
+
+	</tr>
+</table>
+<div class="container">
 
 <table id="content-table">
 	<tr>
-		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>MARKET CAP</th><th>RETURN 1 DAY</th><th>RETURN 7 DAY</th><th>RETURN 14 DAY</th><th>RETURN 30 DAY</th>
+		<th>SECTOR</th><th>INDUSTRY</th><th>SYMBOL</th><th>NAME</th><th>LAST PRICE</th><th>MARKET CAP</th>
+<!-- 		<th>RETURN 1 DAY</th><th>RETURN 7 DAY</th><th>RETURN 14 DAY</th><th>RETURN 30 DAY</th> -->
 	</tr>
 	<tr>
 		<td>{{totalreturnobj.sector}}</td><td>{{totalreturnobj.industry}}</td><td>{{totalreturnobj.symbol}}</td><td>{{totalreturnobj.symbolname}}</td>
 		<td>${{totalreturnobj.latest_close}}</td>
 		<td>${{totalreturnobj.marketcap}} B</td>
-		<td>{{totalreturnobj.return_1_day}}%</td>
+<!-- 		<td>{{totalreturnobj.return_1_day}}%</td>
 		<td>{{totalreturnobj.return_7_day}}%</td>
 		<td>{{totalreturnobj.return_14_day}}%</td>
-		<td>{{totalreturnobj.return_30_day}}%</td>
+		<td>{{totalreturnobj.return_30_day}}%</td> -->
 	</tr>
 </table>
 
+<div class="container row" style="height: 220px; margin-top: 25px">
+	<div class="col-lg-3">
+	<div class="card  h-100 shadow-lg shadow-lg" >
+		<div class="card-header" style="text-align: center; color:orange">1 Day Return</div>
+		<h2 style="margin-top: 40px; text-align: center; color:orange"; >{{totalreturnobj.return_1_day}}%</h2>
+	</div>
+</div>
+<div class="col-lg-3">
+	<div class="card  h-100 shadow-lg" >
+		<div class="card-header" style="text-align: center; color:orange">7 Day Return</div>
+		<h2 style="margin-top: 40px; text-align: center; color:orange"; >{{totalreturnobj.return_7_day}}%</h2>
+	</div>
+</div>
+
+<div class="col-lg-3">
+	<div class="card  h-100 shadow-lg" >
+		<div class="card-header" style="text-align: center; color:orange">14 Day Return</div>
+		<h2 style="margin-top: 40px; text-align: center; color:orange"; >{{totalreturnobj.return_14_day}}%</h2>
+</div>
+	</div>
+
+<div class="col-lg-3">
+
+	<div class="card  h-100 shadow-lg" >
+		<div class="card-header" style="text-align: center; color:orange">30 Day Return</div>
+		<h2 style="margin-top: 40px; text-align: center; color:orange"; >{{totalreturnobj.return_30_day}}%</h2>
+	</div>
+	</div>
+</div>
+<div class="container">
 {% autoescape off %}
 {{myfig}}
 {% endautoescape %}
-
+</div>
 <!-- <table>
 {% for date,price in prices %}
 <tr>
@@ -30,4 +86,5 @@
 
 {% endfor %}
 </table> -->
+</div>
 {% endblock content %}

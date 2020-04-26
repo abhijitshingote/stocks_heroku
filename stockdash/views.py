@@ -34,7 +34,7 @@ def somefunction(request):
 		)
 
 def stock_screener(request):
-	stockobjects = TotalReturnFilter(request.GET, queryset=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10))
+	stockobjects = TotalReturnFilter(request.GET, queryset=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10,latest_close__gt=0).order_by('-return_30_day'))
 	# stockobjects=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10)
 	return render(request,'stockdash/stock_screener.html',context={'stockobjects':stockobjects})
 
