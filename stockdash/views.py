@@ -34,13 +34,14 @@ def somefunction(request):
 		)
 
 def stock_screener(request):
-	stockobjects = TotalReturnFilter(request.GET, queryset=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10,latest_close__gt=0).order_by('-return_30_day'))
+	stockobjects = TotalReturnFilter(request.GET, queryset=TotalReturn.objects.using('stockdb').filter(
+		marketcap__gt=0).exclude(return_30_day__isnull=True).order_by('-return_30_day'))
 	# stockobjects=TotalReturn.objects.using('stockdb').filter(marketcap__gt=10)
 	return render(request,'stockdash/stock_screener.html',context={'stockobjects':stockobjects})
 
 def stockpage(request,symbol):
 	symbol=symbol.upper()
-	print(symbol)
+	# print(symbol)
 	totalreturnobj=TotalReturn.objects.using('stockdb').get(symbol=symbol)
 	
 	stockobj=PriceHistory.objects.using('stockdb').filter(symbol=symbol)
@@ -48,7 +49,7 @@ def stockpage(request,symbol):
 	prices=sorted(prices,key=lambda x:x[0])
 	dates,prices=list(zip(*prices))
 	fig = plt.figure(figsize=[12,5])
-	print(dates)
+	# print(dates)
 	plt.plot(dates,prices)
 	myfig=mpld3.fig_to_html(fig)
 	context=	{

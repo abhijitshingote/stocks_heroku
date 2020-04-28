@@ -33,6 +33,9 @@ class TotalReturnFilter(django_filters.FilterSet):
     return_30_daylt=django_filters.NumberFilter(label='return_30_day <',field_name='return_30_day',lookup_expr='lt')
     return_30_daygt=django_filters.NumberFilter(label='return_30_day >',field_name='return_30_day',lookup_expr='gt')
 
+    marketcap_lt=django_filters.NumberFilter(label='marketcap <',field_name='marketcap',lookup_expr='lt')
+    marketcap_gt=django_filters.NumberFilter(label='marketcap >',field_name='marketcap',lookup_expr='gt')
+
     class Meta:
         model = TotalReturn
         fields = ['sector', 'industry','symbolname']
